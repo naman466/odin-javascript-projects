@@ -7,14 +7,14 @@ function getComputerChoice(){
 function playRound(playerSelection,computerSelection){
     const player = playerSelection.toLowerCase()
     if ((player === 'rock' && computerSelection === 'scissors') || (player === 'paper' && computerSelection === 'rock') || (player === 'scissors' && computerSelection === 'paper')){
-        return 1
+        alert('Player won!')
     }
     
     else if ((computerSelection === 'rock' && player === 'scissors') || (computerSelection === 'paper' && player === 'rock') || (computerSelection === 'scissors' && player === 'paper')){
-        return -1
+        alert('Computer won!')
     }
     else{
-        return 0
+        alert('Tie!')
     }
 }
 
@@ -57,4 +57,21 @@ function game(number){
     displayResult(userScore,computerScore)
 }
 
-game(5)
+const rockBtn = document.querySelector('#rock')
+const paperBtn = document.querySelector('#paper')
+const scissorsBtn = document.querySelector('#scissors')
+const playBtn = document.querySelector('#play')
+let userSelection
+rockBtn.addEventListener('click',() => {
+    userSelection = 'rock'
+})
+paperBtn.addEventListener('click',() => {
+    userSelection= 'paper'
+})
+scissorsBtn.addEventListener('click',() => {
+    userSelection = 'scissors'
+})
+playBtn.addEventListener('click',() => {
+    const computerChoice = getComputerChoice()
+    playRound(userSelection,computerChoice)
+})

@@ -1,3 +1,5 @@
+let userScore = 0
+let computerScore = 0
 function getComputerChoice(){
     const choices = ['rock','paper','scissors']
         const computerChoice = choices[(Math.random() * choices.length) | 0]
@@ -8,14 +10,19 @@ function playRound(playerSelection,computerSelection){
     const player = playerSelection.toLowerCase()
     if ((player === 'rock' && computerSelection === 'scissors') || (player === 'paper' && computerSelection === 'rock') || (player === 'scissors' && computerSelection === 'paper')){
         alert('Player won!')
+        userScore +=1
     }
     
     else if ((computerSelection === 'rock' && player === 'scissors') || (computerSelection === 'paper' && player === 'rock') || (computerSelection === 'scissors' && player === 'paper')){
         alert('Computer won!')
+        computerScore+=1
     }
     else{
         alert('Tie!')
+        userScore +=0.5
+        computerScore +=0.5
     }
+    updateScore()
 }
 
 function displayResult(userScore,computerScore){
@@ -61,17 +68,31 @@ const rockBtn = document.querySelector('#rock')
 const paperBtn = document.querySelector('#paper')
 const scissorsBtn = document.querySelector('#scissors')
 const playBtn = document.querySelector('#play')
-let userSelection
 rockBtn.addEventListener('click',() => {
-    userSelection = 'rock'
+    const computerChoice = getComputerChoice()
+    playRound('rock',computerChoice)
 })
 paperBtn.addEventListener('click',() => {
-    userSelection= 'paper'
+    const computerChoice = getComputerChoice()
+    playRound('paper',computerChoice)
 })
 scissorsBtn.addEventListener('click',() => {
-    userSelection = 'scissors'
-})
-playBtn.addEventListener('click',() => {
     const computerChoice = getComputerChoice()
-    playRound(userSelection,computerChoice)
+    playRound('scissors',computerChoice)
 })
+
+
+function updateScore(){
+    const play = document.querySelector('.play')
+    play.innerHTML = ''
+
+    const userScoreElement = document.createElement('h1')
+    userScoreElement.textContent = `${userScore}`
+    
+    const computerScoreElement = document.createElement('h1')
+    computerScoreElement.innerText= `${computerScore}`
+
+    play.appendChild(userScoreElement)
+    play.appendChild(computerScoreElement)
+}
+

@@ -23,6 +23,7 @@ function playRound(playerSelection,computerSelection){
         computerScore +=0.5
     }
     updateScore()
+    checkWin()
 }
 
 function displayResult(userScore,computerScore){
@@ -96,3 +97,21 @@ function updateScore(){
     play.appendChild(computerScoreElement)
 }
 
+function resetGame(){
+    userScore = 0
+    computerScore = 0
+    updateScore()
+    result.innerHTML = ''
+}
+const result = document.querySelector('.result')
+function checkWin(){
+    if (userScore >= 5) {
+        const winElement = document.createElement('h3')
+        winElement.innerHTML = "User won.<a href='javascript:resetGame()'>Click here to play again.</a>"
+        result.appendChild(winElement)
+    } else if (computerScore >= 5) {
+        const winElement = document.createElement('h3')
+        winElement.innerHTML = "<h3>Computer won.<a href='javascript:resetGame()'>Click here to play again.</a></h3>"
+        result.appendChild(winElement)
+    }
+}
